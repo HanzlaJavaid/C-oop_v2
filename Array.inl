@@ -15,3 +15,5 @@ size_t Array::max_size (void) const
 {
   return 0;
 }
+
+

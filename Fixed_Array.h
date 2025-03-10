@@ -1,34 +1,26 @@
-#ifndef _FIXED_ARRAY_H_
-#define _FIXED_ARRAY_H_
+// Fixed_Array.h
+#ifndef FIXED_ARRAY_H
+#define FIXED_ARRAY_H
 
-#include "Array.h"
-#include "MyException.h"
+#include "Array_Base.h"
+#include "MyException.h"  // Assuming you have custom exceptions defined here
 
 template <typename T, size_t N>
-class Fixed_Array : public Array<T>
-{
+class Fixed_Array : public Array_Base<T> {
 public:
-    // Make base class operator[] visible.
-    using Array<T>::operator[];
+    Fixed_Array() : Array_Base<T>(N) { }
 
-    Fixed_Array(void);
-    Fixed_Array(const Fixed_Array<T, N> & arr);
-    
-    // Allow copying from a Fixed_Array with a different size.
-    template <size_t M>
-    Fixed_Array(const Fixed_Array<T, M> & arr);
-    
-    // Constructor to fill the array.
-    Fixed_Array(T fill);
-    ~Fixed_Array(void);
+    Fixed_Array(const Fixed_Array<T, N>& other) : Array_Base<T>(other) { }
 
-    const Fixed_Array & operator = (const Fixed_Array<T, N> & rhs);
-    template <size_t M>
-    const Fixed_Array & operator = (const Fixed_Array<T, M> & rhs);
+    Fixed_Array(T fill) : Array_Base<T>(N) {
+        for (size_t i = 0; i < N; ++i)
+            this->data_[i] = fill;
+    }
 
-    // Overridden resize: fixed size cannot change.
-    void resize(size_t new_size);
+    ~Fixed_Array() { }
+
+    // No resize method is provided.
+    // You may optionally override any dynamic-specific methods to throw exceptions if needed.
 };
 
-#include "Fixed_Array.cpp"
-#endif // _FIXED_ARRAY_H_
+#endif // FIXED_ARRAY_H

@@ -33,13 +33,24 @@ void Queue<T>::enqueue(T element) {
 }
 
 template <typename T>
-void Queue<T>::dequeue(void) {
-    if (is_empty())
-        throw empty_exception("Queue is empty");
-    for (size_t i = 0; i < count_ - 1; ++i)
+T Queue<T>::dequeue(void) { // MODIFIED: Return type changed from void to T
+    if (is_empty()) {
+        throw empty_exception("Queue is empty"); // Assuming empty_exception is defined in Queue.h or MyException.h
+    }
+
+    T dequeued_element = array_[0]; // Store the front element
+
+    // Shift each remaining element one position to the left.
+    for (size_t i = 0; i < count_ - 1; ++i) {
         array_[i] = array_[i + 1];
-    --count_;
+    }
+
+    --count_; // Decrease the number of elements
+
+    // Resize the underlying array to the new count.
     array_.resize(count_);
+
+    return dequeued_element; // Return the stored element
 }
 
 template <typename T>

@@ -26,7 +26,7 @@ public:
     const Queue<T>& operator=(const Queue<T>& rhs);
 
     void enqueue(T element);
-    void dequeue(void);
+    T dequeue(void);
     bool is_empty(void) const;
     size_t size(void) const;
     void clear(void);

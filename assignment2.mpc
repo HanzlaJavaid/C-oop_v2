@@ -9,7 +9,7 @@ project (assignment2) {
   }
 
   Source_Files {
-    driver.cpp
+    main.cpp
   }
 
   Template_Files {
